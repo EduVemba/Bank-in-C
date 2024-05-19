@@ -90,54 +90,17 @@ void bubbleSortAccounts() {
     }
 }
 
-void bubbbleSortAccountsDescending() {
-    for (int i = 0; i < accountCount; i++){
-        for (int  j = 0; i < accountCount; j++) {
-            if (accounts[j].balance < accounts[j - 1].balance)  {
-                Account temp = accounts[j];
-                accounts[j] = accounts[j - 1];
-                accounts[j - 1] = temp;
-            }      
-        }     
-    }
-}
 
-// Metodo para ler o saldo das contas a partir da maior delas
 void displayHighestBalanceAccounts() {
     if (accountCount == 0) {
         printf("Nenhuma conta criada.\n");
         return;
     }
 
-
     bubbleSortAccounts();
 
     printf("--------------------------------------\n");
     printf("Contas em ordem decrescente de saldo:\n");
-    printf("--------------------------------------\n");
-
-    for (int i = 0; i < accountCount; i++) {
-        printf("Conta %d:\n", i + 1);
-        printf("Nome: %s\n", accounts[i].name);
-        printf("ID: %d\n", accounts[i].ID);
-        printf("Saldo: %.2f\n", accounts[i].balance);
-        printf("Tipo de Conta: %s\n", accounts[i].accountType);
-        printf("--------------------------------------\n");
-    }
-}
-
-
-//Metodo para ler o saldo das contas a partir da menor delas
-void displayLowestBalanceAccounts() {
-   if (accountCount == 0) {
-        printf("Nenhuma conta criada.\n");
-        return;
-    }
-
-    bubbleSortAccountsDescending();
-
-    printf("--------------------------------------\n");
-    printf("Contas em ordem crescente de saldo:\n");
     printf("--------------------------------------\n");
 
     for (int i = 0; i < accountCount; i++) {
@@ -219,17 +182,15 @@ void statusAccount(Account* account) {
 
 int main() {
     int option;
-
-       do {
+    do {
         printf("1. Criar uma nova conta\n");
         printf("2. Exibir todas as contas em ordem decrescente de saldo\n");
-        printf("3. Exibir todas as contas em ordem crescente de saldo\n");
-        printf("4. Sacar\n");
-        printf("5. Depositar\n");
-        printf("6. Exibir status da conta\n");
-        printf("7. Sair\n");
+        printf("3. Sacar\n");
+        printf("4. Depositar\n");
+        printf("5. Exibir status da conta\n");
+        printf("6. Sair\n");
         printf("Escolha uma opção: ");
-        while (scanf("%d", &option) != 1 || option < 1 || option > 7) {
+        while (scanf("%d", &option) != 1 || option < 1 || option > 6) {
             printf("Opção inválida. Tente novamente.\n");
             clearInputBuffer(); 
         }
@@ -246,9 +207,6 @@ int main() {
                 displayHighestBalanceAccounts();
                 break;
             case 3:
-                displayLowestBalanceAccounts();
-                break;
-            case 4:
                 printf("Digite o ID da conta para saque: ");
                 while (scanf("%d", &accountID) != 1) {
                     printf("ID inválido. Tente novamente.\n");
@@ -262,7 +220,7 @@ int main() {
                     printf("Conta não encontrada\n");
                 }
                 break;
-            case 5:
+            case 4:
                 printf("Digite o ID da conta para depósito: ");
                 while (scanf("%d", &accountID) != 1) {
                     printf("ID inválido. Tente novamente.\n");
@@ -276,7 +234,7 @@ int main() {
                     printf("Conta não encontrada\n");
                 }
                 break;
-            case 6:
+            case 5:
                 printf("Digite o ID da conta para exibir o status: ");
                 while (scanf("%d", &accountID) != 1) {
                     printf("ID inválido. Tente novamente.\n");
@@ -290,13 +248,13 @@ int main() {
                     printf("Conta não encontrada\n");
                 }
                 break;
-            case 7:
+            case 6:
                 printf("Saindo...\n");
                 break;
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }
-    } while (option != 7);
+    } while (option != 6);
 
     return 0;
 }
