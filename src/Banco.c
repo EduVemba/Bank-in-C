@@ -2,6 +2,7 @@
 #include <string.h>
 
 
+
 typedef struct Account {
     char name[100];
     int ID;
@@ -90,7 +91,7 @@ void bubbleSortAccounts() {
     }
 }
 
-void bubbbleSortAccountsDescending() {
+void bubbleSortAccountsDescending() {
     for (int i = 0; i < accountCount; i++){
         for (int  j = 0; i < accountCount; j++) {
             if (accounts[j].balance < accounts[j - 1].balance)  {
