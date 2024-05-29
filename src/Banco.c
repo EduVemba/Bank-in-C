@@ -203,6 +203,27 @@ Account* findAccountByID(int ID) {
     return NULL;
 }
 
+void destroyAccount(int id) {
+    int index = -1;
+    for (int i = 0; i < accountCount; i++) {
+        if (accounts[i].ID == id) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) {
+        printf("Conta não encontrada.\n");
+        return;
+    }
+    // Mover as contas restantes para preencher o espaço vazio
+    for (int i = index; i < accountCount - 1; i++) {
+        accounts[i] = accounts[i + 1];
+    }
+
+    accountCount--;
+    printf("Conta destruída com sucesso.\n");
+}
 
 void statusAccount(Account* account) {
     char type[100];
@@ -221,16 +242,18 @@ void statusAccount(Account* account) {
 int main() {
     int option;
 
-       do {
-        printf("1. Criar uma nova conta\n");
+     
+    do {
+        printf("\n1. Criar uma nova conta\n");
         printf("2. Exibir todas as contas em ordem decrescente de saldo\n");
         printf("3. Exibir todas as contas em ordem crescente de saldo\n");
         printf("4. Sacar\n");
         printf("5. Depositar\n");
         printf("6. Exibir status da conta\n");
-        printf("7. Sair\n");
+        printf("7. Eliminar Conta\n");
+        printf("8. Sair\n");
         printf("Escolha uma opção: ");
-        while (scanf("%d", &option) != 1 || option < 1 || option > 7) {
+        while (scanf("%d", &option) != 1 || option < 1 || option > 8) {
             printf("Opção inválida. Tente novamente.\n");
             clearInputBuffer(); 
         }
@@ -292,12 +315,26 @@ int main() {
                 }
                 break;
             case 7:
+                printf("Digite o ID da conta para eliminar: ");
+                while (scanf("%d", &accountID) != 1) {
+                    printf("ID inválido. Tente novamente.\n");
+                    clearInputBuffer(); 
+                }
+                clearInputBuffer(); 
+                account = findAccountByID(accountID);
+                if (account != NULL) {
+                    destroyAccount(accountID);
+                } else {
+                    printf("Conta não encontrada\n");
+                }
+                break;
+            case 8:
                 printf("Saindo...\n");
                 break;
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }
-    } while (option != 7);
+    } while (option != 8);
 
     return 0;
 }
